@@ -1,6 +1,6 @@
 package com.example.parking.entity;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,14 +13,21 @@ public class ParkingTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long ID;
-    Date date;
+    LocalDateTime timestamp;
     
     public ParkingTime() {
 
     }
 
-    public ParkingTime(Date date) {
-        this.date = date;
+    //  ** Pre-req sqript in postman below **
+    //      var timestamp = new Date();
+    //      postman.setEnvironmentVariable("timestamp", timestamp.toISOString());
+    //  ** Send **
+    //      "timestamp": "{{timestamp}}" 
+    //  ** as json in body **
+
+    public ParkingTime(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     public Long getID() {
@@ -31,12 +38,12 @@ public class ParkingTime {
         ID = iD;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
     
 }
