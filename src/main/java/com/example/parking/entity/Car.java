@@ -10,8 +10,8 @@ public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long ID;
-    String regNr;
+    private Long ID;
+    private String regNr;
     
     public Car() {
 

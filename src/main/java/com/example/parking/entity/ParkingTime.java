@@ -12,22 +12,25 @@ public class ParkingTime {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long ID;
-    LocalDateTime timestamp;
+    private Long ID;
+    private LocalDateTime parkingStart;
+    private LocalDateTime parkingEnd;
     
     public ParkingTime() {
 
     }
 
-    //  ** Pre-req sqript in postman below **
+    //  ** Send timestamps in postman **
+    //  ** For start time - Pre-req sqript in postman below **
     //      var timestamp = new Date();
     //      postman.setEnvironmentVariable("timestamp", timestamp.toISOString());
-    //  ** Send **
-    //      "timestamp": "{{timestamp}}" 
-    //  ** as json in body **
+    //  ** To set start and end time send as json body **
+    //      "parkingStart": "{{timestamp}}"
+    //      "parkingEnd": "YYYY-MM-DDTHH:MM"    (set actual date/time to end parking)
 
-    public ParkingTime(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+    public ParkingTime(LocalDateTime parkingStart, LocalDateTime parkingEnd) {
+        this.parkingStart = parkingStart;
+        this.parkingEnd = parkingEnd;
     }
 
     public Long getID() {
@@ -38,12 +41,20 @@ public class ParkingTime {
         ID = iD;
     }
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public LocalDateTime getParkingStart() {
+        return parkingStart;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+    public void setParkingStart(LocalDateTime parkingStart) {
+        this.parkingStart = parkingStart;
+    }
+
+    public LocalDateTime getParkingEnd() {
+        return parkingEnd;
+    }
+
+    public void setParkingEnd(LocalDateTime parkingEnd) {
+        this.parkingEnd = parkingEnd;
     }
     
 }

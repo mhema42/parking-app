@@ -10,8 +10,8 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long ID;
-    String name;
+    private Long ID;
+    private String name;
 
     public Person() {
         
