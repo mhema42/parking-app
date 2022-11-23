@@ -14,35 +14,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.parking.entity.ParkingSlot;
-import com.example.parking.repository.ParkingSlotRepository;
+import com.example.parking.entity.ParkingLot;
+import com.example.parking.repository.ParkingLotRepository;
 
 @RestController
-public class ParkingController {
-    ParkingSlotRepository parkingSlotRepository;
+public class ParkingLotController {
+    ParkingLotRepository parkingLotRepository;
 
-    public ParkingController (
-        ParkingSlotRepository parkingSlotRepository
+    public ParkingLotController (
+        ParkingLotRepository parkingLotRepository
     ) {
-        this.parkingSlotRepository = parkingSlotRepository;
+        this.parkingLotRepository = parkingLotRepository;
     }
 
     @PostMapping("/parking")
-    public ResponseEntity<ParkingSlot> insertOne(@RequestBody ParkingSlot parkingSlot) {
-        parkingSlot.setCoordinate(point(WGS84,g(4.33,3.21)));
-        var newParkingslot = parkingSlotRepository.save(parkingSlot);
+    public ResponseEntity<ParkingLot> insertOne(@RequestBody ParkingLot parkingLot) {
+        parkingLot.setCoordinate(point(WGS84,g(1,1)));
+        var newParkingLot = parkingLotRepository.save(parkingLot);
         
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newParkingslot.getId())
+                .buildAndExpand(newParkingLot.getId())
                 .toUri();
-        return ResponseEntity.created(location).body(newParkingslot);
+                
+        return ResponseEntity.created(location).body(newParkingLot);
     }
 
-    @GetMapping("/parking")
-    public List<ParkingSlot> allPoints() {
-        return parkingSlotRepository.findAll();
+    @GetMapping("/parkings")
+    public List<ParkingLot> allPoints() {
+        return parkingLotRepository.findAll();
     }
 
 }

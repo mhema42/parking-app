@@ -9,7 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class ParkingSlot {
+public class ParkingLot {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

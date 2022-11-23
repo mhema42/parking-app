@@ -1,9 +1,12 @@
 package com.example.parking.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Car {
@@ -12,6 +15,10 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
     private String regNr;
+
+    @ManyToOne
+    //  @JsonIgnore
+    private Person person;
     
     public Car() {
 
@@ -25,8 +32,8 @@ public class Car {
         return ID;
     }
 
-    public void setID(Long iD) {
-        ID = iD;
+    public void setID(Long id) {  
+        this.ID = id;
     }
 
     public String getRegNr() {
@@ -35,6 +42,16 @@ public class Car {
 
     public void setRegNr(String regNr) {
         this.regNr = regNr;
+    }
+
+
+    // adds person column in car table with null - remove?
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
 }
