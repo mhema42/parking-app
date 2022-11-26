@@ -13,10 +13,10 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "person")
     private List<Car> cars = new ArrayList<>();
 
     public Person() {
@@ -27,12 +27,12 @@ public class Person {
         this.name = name;
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
-    public void setID(Long id) {
-        this.ID = id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -51,11 +51,9 @@ public class Person {
         this.cars = cars;
     }
 
-
-    // adds person column in car table with null - remove?
-    /* public void addCar(Car c){
+    public void addCar(Car c){
         c.setPerson(this);
         this.cars.add(c);
-    } */
+    }
     
 }

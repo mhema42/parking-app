@@ -41,17 +41,17 @@ public class PersonController {
         person.setName("Kalle");
 
         Car car1 = new Car();
-        car1.setRegNr("CCC222");
+        car1.setRegNr("CCC222");    
         carRepository.save(car1);
 
         Car car2 = new Car();
         car2.setRegNr("XYZ889");
         carRepository.save(car2);
 
-        person.getCars().add(car1);
-        person.getCars().add(car2);
+        person.addCar(car1);
+        person.addCar(car2);
 
-        personRepository.save(person);
+        //personRepository.save(person);
         return personRepository.save(person);
 
     }

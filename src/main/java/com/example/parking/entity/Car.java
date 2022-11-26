@@ -13,11 +13,12 @@ public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
     private String regNr;
 
     @ManyToOne
-    //  @JsonIgnore
+    // @JoinColumn(name = "fk_person")
+    @JsonIgnore
     private Person person;
     
     public Car() {
@@ -28,12 +29,12 @@ public class Car {
         this.regNr = regNr;
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
-    public void setID(Long id) {  
-        this.ID = id;
+    public void setId(Long id) {  
+        this.id = id;
     }
 
     public String getRegNr() {
@@ -44,8 +45,6 @@ public class Car {
         this.regNr = regNr;
     }
 
-
-    // adds person column in car table with null - remove?
     public Person getPerson() {
         return person;
     }
