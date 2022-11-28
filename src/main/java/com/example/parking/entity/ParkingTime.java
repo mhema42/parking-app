@@ -9,29 +9,12 @@ import jakarta.persistence.Id;
 
 @Entity
 public class ParkingTime {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
     private LocalDateTime parkingStart;
     private LocalDateTime parkingEnd;
-    
-    public ParkingTime() {
-
-    }
-
-    //  ** Send timestamps in postman **
-    //  ** For start time - Pre-req sqript in postman below **
-    //      var timestamp = new Date();
-    //      postman.setEnvironmentVariable("timestamp", timestamp.toISOString());
-    //  ** To set start and end time send as json body **
-    //      "parkingStart": "{{timestamp}}"
-    //      "parkingEnd": "YYYY-MM-DDTHH:MM"    (set actual date/time to end parking)
-
-    public ParkingTime(LocalDateTime parkingStart, LocalDateTime parkingEnd) {
-        this.parkingStart = parkingStart;
-        this.parkingEnd = parkingEnd;
-    }
 
     public Long getID() {
         return ID;
@@ -56,5 +39,5 @@ public class ParkingTime {
     public void setParkingEnd(LocalDateTime parkingEnd) {
         this.parkingEnd = parkingEnd;
     }
-    
+
 }

@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfig {
 
     @Bean
-    GeolatteGeomModule geolatteModule(){
+    GeolatteGeomModule geolatteModule() {
         return new GeolatteGeomModule();
     }
-    
+
 }

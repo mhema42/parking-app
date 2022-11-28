@@ -2,10 +2,12 @@ package com.example.parking.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -16,16 +18,9 @@ public class Person {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "person_id")
     private List<Car> cars = new ArrayList<>();
-
-    public Person() {
-        
-    }
-
-    public Person(String name) {
-        this.name = name;
-    }
 
     public Long getId() {
         return id;
@@ -51,9 +46,4 @@ public class Person {
         this.cars = cars;
     }
 
-    public void addCar(Car c){
-        c.setPerson(this);
-        this.cars.add(c);
-    }
-    
 }
