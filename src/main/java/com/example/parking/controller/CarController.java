@@ -25,7 +25,7 @@ public class CarController {
         return "Car saved";
     }
 
-    @GetMapping("/car")
+    @GetMapping("/cars")
     public Iterable<Car> getAllCarNames() {
         return carRepository.findAll();
     }

@@ -13,7 +13,6 @@ import com.example.parking.repository.PersonRepository;
 
 @RestController
 public class PersonController {
-
     PersonRepository personRepository;
 
     public PersonController(PersonRepository personRepository) {
