@@ -17,7 +17,7 @@ public class StartParking {
     Long id;
     private LocalDateTime parkingStart;
     private LocalDateTime parkingEnd;
-    
+
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;

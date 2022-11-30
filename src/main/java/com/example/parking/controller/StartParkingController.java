@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.parking.entity.Car;
 import com.example.parking.entity.ParkingLot;
 import com.example.parking.entity.Person;
@@ -18,6 +17,7 @@ import com.example.parking.repository.CarRepository;
 import com.example.parking.repository.ParkingLotRepository;
 import com.example.parking.repository.PersonRepository;
 import com.example.parking.repository.StartParkingRepository;
+import com.example.parking.service.StartParkingService;
 
 @RestController
 public class StartParkingController {
@@ -27,11 +27,10 @@ public class StartParkingController {
     ParkingLotRepository parkingLotRepository;
 
     public StartParkingController(
-        StartParkingRepository startParkingRepository, 
-        PersonRepository personRepository, 
-        CarRepository carRepository,
-        ParkingLotRepository parkingLotRepository
-    ) {
+            StartParkingRepository startParkingRepository,
+            PersonRepository personRepository,
+            CarRepository carRepository,
+            ParkingLotRepository parkingLotRepository) {
         this.startParkingRepository = startParkingRepository;
         this.personRepository = personRepository;
         this.carRepository = carRepository;
@@ -39,25 +38,24 @@ public class StartParkingController {
     }
 
     @PostMapping("/pstart/{person_id}/{car_id}/{parking_lot_id}")
-        public ResponseEntity<StartParking> startParking(
-            @RequestBody StartParking startParking, 
+    public ResponseEntity<StartParking> startParking(
+            @RequestBody StartParking startParking,
             @PathVariable Long person_id,
             @PathVariable Long car_id,
-            @PathVariable Long parking_lot_id
-        ) {
-        
+            @PathVariable Long parking_lot_id) {
+
         Person person = personRepository.findById(person_id).get();
         startParking.setPerson(person);
-
         Car car = carRepository.findById(car_id).get();
         startParking.setCar(car);
-
         ParkingLot parkingLot = parkingLotRepository.findById(parking_lot_id).get();
         startParking.setParkingLot(parkingLot);
-        
         LocalDateTime startTime = LocalDateTime.now();
         startParking.setParkingStart(startTime);
- 
+
+        if (StartParkingService.CheckTime(startParking.getParkingEnd())) {
+            return ResponseEntity.badRequest().build();
+        }
         var newStartParking = startParkingRepository.save(startParking);
         return ResponseEntity.ok(newStartParking);
     }
@@ -68,8 +66,8 @@ public class StartParkingController {
     }
 
     @GetMapping("/pstart/{id}")
-        public Optional<StartParking> getOne(@PathVariable("id") Long id) {
-            return startParkingRepository.findById(id);
+    public Optional<StartParking> getOne(@PathVariable("id") Long id) {
+        return startParkingRepository.findById(id);
     }
 
 }
