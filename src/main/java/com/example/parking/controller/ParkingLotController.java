@@ -23,7 +23,7 @@ public class ParkingLotController {
         this.parkingLotRepository = parkingLotRepository;
     }
 
-    @PostMapping("/parking")
+    @PostMapping("/lot")
     public ResponseEntity<ParkingLot> insertOne(@RequestBody ParkingLot parkingLot) {
         var newParkingLot = parkingLotRepository.save(parkingLot);
 
@@ -36,14 +36,14 @@ public class ParkingLotController {
         return ResponseEntity.created(location).body(newParkingLot);
     }
 
-    @GetMapping("/parkings")
+    @GetMapping("/lots")
     public List<ParkingLot> allPoints() {
         return parkingLotRepository.findAll();
     }
 
-    @GetMapping("/parking/{id}")
-    public Optional<ParkingLot> getOne(@PathVariable("id") Long id) {
-        return parkingLotRepository.findById(id);
+    @GetMapping("/lot/{id}")
+    public Optional<ParkingLot> getOne(@PathVariable Long lotId) {
+        return parkingLotRepository.findById(lotId);
     }
 
 }

@@ -10,24 +10,26 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class StartParking {
+public class Parking {
 
     @Id
+    @JoinColumn(name = "parkingId", referencedColumnName = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    private String status;
     private LocalDateTime parkingStart;
     private LocalDateTime parkingEnd;
 
     @ManyToOne
-    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    @JoinColumn(name = "personId", referencedColumnName = "id")
     private Person person;
 
     @ManyToOne
-    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    @JoinColumn(name = "carId", referencedColumnName = "id")
     private Car car;
 
     @ManyToOne
-    @JoinColumn(name = "parking_lot_id", referencedColumnName = "id")
+    @JoinColumn(name = "parkingLotId", referencedColumnName = "id")
     private ParkingLot parkingLot;
 
     public Long getId() {
@@ -36,6 +38,14 @@ public class StartParking {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public LocalDateTime getParkingStart() {

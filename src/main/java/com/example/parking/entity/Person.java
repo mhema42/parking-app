@@ -15,12 +15,12 @@ import jakarta.persistence.OneToMany;
 public class Person {
 
     @Id
+    @JoinColumn(name = "personId", referencedColumnName = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "person_id")
     private List<Car> cars = new ArrayList<>();
 
     public Long getId() {

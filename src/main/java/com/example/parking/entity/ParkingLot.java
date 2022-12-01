@@ -7,13 +7,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class ParkingLot {
 
     @Id
+    @JoinColumn(name = "lotId", referencedColumnName = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    
+    private Long id;   
 
     private Point<G2D> coordinate;
 
