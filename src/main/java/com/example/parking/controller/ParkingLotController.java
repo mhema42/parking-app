@@ -36,14 +36,14 @@ public class ParkingLotController {
         return ResponseEntity.created(location).body(newParkingLot);
     }
 
-    @GetMapping("/lots")
-    public List<ParkingLot> allPoints() {
-        return parkingLotRepository.findAll();
+    @GetMapping("/lot/{id}")
+    public Optional<ParkingLot> getOneLot(@PathVariable Long lotId) {
+        return parkingLotRepository.findById(lotId);
     }
 
-    @GetMapping("/lot/{id}")
-    public Optional<ParkingLot> getOne(@PathVariable Long lotId) {
-        return parkingLotRepository.findById(lotId);
+    @GetMapping("/lots")
+    public List<ParkingLot> getAllLots() {
+        return parkingLotRepository.findAll();
     }
 
 }

@@ -26,14 +26,14 @@ public class PersonController {
         return new ResponseEntity<>(personRepository.save(person), HttpStatus.OK);
     }
 
-    @GetMapping("/persons")
-    public Iterable<Person> getAllPersonNames() {
-        return personRepository.findAll();
+    @GetMapping("/person/{id}")
+    public Optional<Person> getOnePerson(@PathVariable("id") Long id) {
+        return personRepository.findById(id);
     }
 
-    @GetMapping("/person/{id}")
-    public Optional<Person> getOne(@PathVariable("id") Long id) {
-        return personRepository.findById(id);
+    @GetMapping("/persons")
+    public Iterable<Person> getAllPersons() {
+        return personRepository.findAll();
     }
 
 }

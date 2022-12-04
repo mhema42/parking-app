@@ -87,33 +87,33 @@ public class ParkingController {
             return ResponseEntity.ok(endedParking);
     }
 
-    @GetMapping("/parkings")
-    public Iterable<Parking> getAllParkings() {
-        return ParkingRepository.findAll();
-    }
-
     @GetMapping("/parking/{parkingId}")
     public Optional<Parking> getOne(@PathVariable Long parkingId) {
         return ParkingRepository.findById(parkingId);
     }
 
+    @GetMapping("/parkings")
+    public Iterable<Parking> getAllParkings() {
+        return ParkingRepository.findAll();
+    }
+
     @GetMapping("/parkings/ended")
-    public Iterable<Parking> AllEndedParkings() {
+    public Iterable<Parking> getAllEndedParkings() {
         return ParkingRepository.findByStatus("ended");
     }
 
     @GetMapping("/parkings/active")
-    public Iterable<Parking> AllActiveParkings() {
+    public Iterable<Parking> getAllActiveParkings() {
         return ParkingRepository.findByStatus("active");
     }
 
     @GetMapping("/parkings/person/{personId}")
-    public Iterable<Parking> AllParkingsForPerson(@PathVariable Long personId) {
+    public Iterable<Parking> getAllParkingsForPerson(@PathVariable Long personId) {
         return ParkingRepository.findByPersonId(personId);
     }
 
     @GetMapping("/parkings/car/{carId}")
-    public Iterable<Parking> AllParkingsForCar(@PathVariable Long carId) {
+    public Iterable<Parking> getAllParkingsForCar(@PathVariable Long carId) {
         return ParkingRepository.findByCarId(carId);
     }
 
