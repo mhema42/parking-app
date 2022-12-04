@@ -6,14 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Parking {
 
     @Id
-    @JoinColumn(name = "parkingId", referencedColumnName = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     private String status;
@@ -21,15 +19,12 @@ public class Parking {
     private LocalDateTime parkingEnd;
 
     @ManyToOne
-    @JoinColumn(name = "personId", referencedColumnName = "id")
     private Person person;
 
     @ManyToOne
-    @JoinColumn(name = "carId", referencedColumnName = "id")
     private Car car;
 
     @ManyToOne
-    @JoinColumn(name = "parkingLotId", referencedColumnName = "id")
     private ParkingLot parkingLot;
 
     public Long getId() {

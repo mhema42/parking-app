@@ -2,6 +2,8 @@ package com.example.parking.controller;
 
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +22,8 @@ public class PersonController {
     }
 
     @PostMapping("/person")
-    public Person addPerson(@RequestBody Person person) {
-        return personRepository.save(person);
+    public ResponseEntity<Person> addPerson(@RequestBody Person person) {
+        return new ResponseEntity<>(personRepository.save(person), HttpStatus.OK);
     }
 
     @GetMapping("/persons")

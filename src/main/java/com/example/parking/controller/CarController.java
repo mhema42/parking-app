@@ -2,6 +2,8 @@ package com.example.parking.controller;
 
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.parking.entity.Car;
+import com.example.parking.entity.Person;
 import com.example.parking.repository.CarRepository;
 import com.example.parking.repository.PersonRepository;
 import com.example.parking.service.CarService;
@@ -19,22 +22,22 @@ public class CarController {
     CarRepository carRepository;
     PersonRepository personRepository;
 
-    public CarController(CarRepository carRepository) {
+    public CarController(CarRepository carRepository, PersonRepository personRepository) {
         this.carRepository = carRepository;
+        this.personRepository = personRepository;
     }
 
     @PostMapping("/car")
-    public String addCar(@RequestBody Car car) {
-        if (CarService.CheckRegNr(car.getRegNr())) {
-            carRepository.save(car);
-            return "Car saved";
+    public ResponseEntity<Car> addCar (@RequestBody Car NewCar) {
+        if (CarService.CheckRegNr(NewCar.getRegNr())) {
+            return new ResponseEntity<>(carRepository.save(NewCar), HttpStatus.OK);
         }
-        return "U must enter valid regNr";
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/cars")
     public Iterable<Car> getAllCarNames() {
-        return carRepository.findAll();
+        return (carRepository.findAll());
     }
 
     @GetMapping("/car/{carId}")
@@ -44,8 +47,9 @@ public class CarController {
 
     @PatchMapping("/car/{carId}/{personId}")
     public String addPerson(@PathVariable Long carId, @PathVariable Long personId) {
+        Person person = personRepository.findById(personId).get();
         Car car = carRepository.findById(carId).get();
-        car.setPerson_id(personId);
+        car.setPerson(person);
         carRepository.save(car);
         return "Add person to car";
     }
